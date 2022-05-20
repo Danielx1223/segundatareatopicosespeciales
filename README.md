@@ -1,6 +1,6 @@
 # ReactJs - the all new things - UNIVERSIDAD DEL NORTE 
 
-Api example using Nodejs with ExpressJs
+Task manager example using reactjs
 
 ## TEAM PLAYERS
 - RONALD CARRILLO
