@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 
-function ListTasks({ tasks, onComplete, onDelete }) {
+function ListTasks({ tasks, onComplete, onDelete, onEdit }) {
     const [listTasks, setListTasks] = useState([]);
 
     useEffect(() => {
@@ -29,6 +29,12 @@ function ListTasks({ tasks, onComplete, onDelete }) {
                                         variant="secondary"
                                         onClick={() => { onComplete(task._id) }}>
                                         Done
+                                    </Button>
+                                    <div className="vr" />
+                                    <Button
+                                        variant="outline-info"
+                                        onClick={() => { onEdit(task._id, task.description) }}>
+                                        Edit
                                     </Button>
                                     <div className="vr" />
                                     <Button

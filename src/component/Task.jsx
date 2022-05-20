@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { createTask, deleteTask, getAllTasks } from "../services/Task";
+import { createTask, deleteTask, getAllTasks, updateTask } from "../services/Task";
 import CreateTask from "./CreateTask";
 import ListTasks from "./ListTasks";
+import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 
 function Task() {
     const [tasks, setTasks] = useState([]);
+    const [modalShow, setModalShow] = useState(false);
+    const [editTask, setEditTask] = useState({});
 
     const getAll = async () => {
         const { data } = await getAllTasks();
@@ -37,6 +40,17 @@ function Task() {
         complete(id);
     }
 
+    const handleOnEdit = (id, description) => {
+        setEditTask({ id, description });
+        setModalShow(true);
+    }
+
+    const handleOnConfirmEdit = async (id, description) => {
+        await updateTask(id, description);
+        setModalShow(false);
+        await getAll();
+    }
+
     return (
         <Container>
             <h1>Tasks</h1>
@@ -44,7 +58,14 @@ function Task() {
             <ListTasks
                 tasks={tasks}
                 onComplete={handleOnCompleteTask}
+                onEdit={handleOnEdit}
                 onDelete={handleOnDelete} />
+            <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                onConfirmEdit={handleOnConfirmEdit}
+                editTask={editTask}
+            />
         </Container>
     );
 }

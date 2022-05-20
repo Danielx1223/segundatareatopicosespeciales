@@ -13,6 +13,14 @@ export function createTask(description) {
     );
 }
 
+export function updateTask(id, description) {
+    return axios.put(
+        '/api/v1/tasks/' + id,
+        { description },
+        getHeaderToken()
+    );
+}
+
 export function deleteTask(id) {
     return axios.delete('/api/v1/tasks/' + id, getHeaderToken());
 }
